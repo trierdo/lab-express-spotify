@@ -59,12 +59,25 @@ app.get('/albums/:artistId',  (req, res,next) => {
     spotifyApi.getArtistAlbums(req.params.artistId, {limit: 10, offset: 20}, function(err, data) { //artistId
         if (err) console.error(err);
         else {console.log('Artist albums', data);
-        console.log('-----------', data.body.items[0]);
+        //console.log('-----------', data.body.items[0]);
         res.render('albums',data.body);}
       });
+});
 
 
-   
+app.get('/viewTracks/:albumId', (req, res,next) => {
+
+console.log('######### album ##############',req.params.albumId);
+
+spotifyApi.getAlbumTracks(req.params.albumId, {limit: 20, offset: 20}, function(err, data) {
+    if (err) console.error(err);
+    else {
+        console.log('Artist Tracks', data.body.items[0]);
+    
+    res.render('tracks',data.body);
+    }
+});
+
 
 });
 
